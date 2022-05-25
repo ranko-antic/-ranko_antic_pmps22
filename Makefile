@@ -13,6 +13,7 @@ SRCS = main.c
 SRCS += system_stm32f4xx.c stm32f4xx_it.c
 SRCS += usart.c misc.c
 SRCS += delay.c
+SRCS += dht11.c
 
 
 # HAL Driver
@@ -87,4 +88,3 @@ upload: proj
 	@$(STM32CUBEPROG) -w $(PROJ_NAME).bin  0x08000000 
 	@sleep 1
 	@$(STM32CUBEPROG) -hardRst 
-
