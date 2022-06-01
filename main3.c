@@ -75,12 +75,17 @@ int main(void) {
 
   // konfiguracija pinova za ventilator i grijalicu:
   GPIO_InitTypeDef GPIO_InitStruct_;
-  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   GPIO_InitStruct_.Pin = GPIO_PIN_10 | GPIO_PIN_11;
   GPIO_InitStruct_.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct_.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct_);
 
+  //zbog inverzne logike dvokanalnog releja
+HAL_GPIO_WritePin(GPIOC,GPIO_PIN_10,GPIO_PIN_SET);
+HAL_GPIO_WritePin(GPIOC,GPIO_PIN_11,GPIO_PIN_SET);
+
+  
   // konfiguracija pinova za  push button-e:
   GPIO_InitTypeDef GPIO_InitStruct;
   __HAL_RCC_GPIOA_CLK_ENABLE();
