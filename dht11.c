@@ -68,19 +68,3 @@ while((HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)));   //cekamo 0
 return i;
 }
 
-/*void display_TEMP(float temp) {
-  char str[20] = {0};
-  LCD_setCursor(lcd, 0, 0);
-  LCD_clearScreen(lcd);
-  sprintf(str, "TEMP:- %.2f ", temp);
-  LCD_putstr(lcd, (uint8_t *)(&str));
-}
-
-void Display_setTemp(float Rh){
-char str[20] = {0};
-lcd_put_cur(1,0);
-sprintf (str, "RH:- %.2f ", Rh);
-lcd_send_string(str);
-lcd_send_data('C');
-}
-*/
