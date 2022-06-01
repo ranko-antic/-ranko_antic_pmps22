@@ -94,3 +94,96 @@ HAL_GPIO_WritePin(GPIOC,GPIO_PIN_11,GPIO_PIN_SET);
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+ /*HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+        HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+        HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0 ,0);
+        HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+*/
+
+LCD_GPIO_Init();
+
+  LCD_TypeDef *lcd =
+    LCD_init(&LCD_RS, &LCD_RW, &LCD_E, &LCD_D4, &LCD_D5, &LCD_D6, &LCD_D7);
+  pom = lcd;
+  LCD_begin(pom);
+
+
+  LCD_setCursor(pom, 0, 0);
+  LCD_clearScreen(lcd);
+  LCD_putstr(lcd, (uint8_t *)"LOADING>>>");
+  delay_ms(2000);
+  LCD_clearScreen(pom);
+
+ /* DHT11_start_signal();
+  presence = DHT11_check_response();
+  RH_integral = DHT11_read();
+  RH_decimal = DHT11_read();
+  TEMP_integral = DHT11_read();
+  TEMP_decimal = DHT11_read();
+  CHECKSUM = DHT11_read();
+  temperature = (float)TEMP_integral;
+  setTemperature = temperature-4;
+  display_TEMP(lcd, temperature);
+  */
+  while (1) {
+
+           DHT11_start_signal();
+presence = DHT11_check_response();
+  RH_integral = DHT11_read();
+  RH_decimal = DHT11_read();
+  TEMP_integral = DHT11_read();
+  TEMP_decimal = DHT11_read();
+  CHECKSUM = DHT11_read();
+  temperature = (float)TEMP_integral;
+  display_TEMP(lcd, temperature);
+
+           set_TEMP();
+          check_TEMP(temperature);
+}
+}
+
+/*void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{ 
+        if (GPIO_Pin == GPIO_PIN_9)                // PA0 or PB0 or PC0, all GPIO 0 are multiplexer 
+        {
+         setTemperature+=increment;
+         delay_ms(10);
+         display_TEMP(pom,temperature);
+        }
+if(GPIO_Pin == GPIO_PIN_15){
+setTemperature -= increment;
+delay_ms(10);
+display_TEMP(pom,temperature);
+}
+} */
+
+
+void set_TEMP(void){
+
+        if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_9) == 1){
+          setTemperature += increment;
+          display_TEMP(pom,temperature);
+          }
+          if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_15) == 1){
+           setTemperature -= increment;
+          display_TEMP(pom,temperature);
+        }
+}
+
+
+void check_TEMP(float t){
+
+if(t >= (setTemperature + 5)){
+HAL_GPIO_WritePin(GPIOC,GPIO_PIN_11,GPIO_PIN_RESET);
+}  //ventilator
+
+else if(t <= (setTemperature-5)){
+HAL_GPIO_WritePin(GPIOC,GPIO_PIN_10,GPIO_PIN_RESET);  //grijalica
+}
+else {
+HAL_GPIO_WritePin(GPIOC,GPIO_PIN_10,GPIO_PIN_SET);
+HAL_GPIO_WritePin(GPIOC,GPIO_PIN_11,GPIO_PIN_SET);
+}
+}
+
+
