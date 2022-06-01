@@ -79,7 +79,7 @@ int main(void) {
   GPIO_InitStruct_.Pin = GPIO_PIN_10 | GPIO_PIN_11;
   GPIO_InitStruct_.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct_.Pull = GPIO_PULLDOWN;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct_);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct_);
 
   // konfiguracija pinova za  push button-e:
   GPIO_InitTypeDef GPIO_InitStruct;
@@ -87,5 +87,5 @@ int main(void) {
   GPIO_InitStruct.Pin = GPIO_PIN_9 | GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
