@@ -101,7 +101,6 @@ int main(void) {
   pom = lcd;
   LCD_begin(pom);
 
-
   LCD_setCursor(pom, 0, 0);
   LCD_clearScreen(lcd);
   LCD_putstr(lcd, (uint8_t *)"LOADING>>>");
@@ -109,19 +108,18 @@ int main(void) {
   LCD_clearScreen(pom);
 
   while (1) {
+    DHT11_start_signal();
+    presence = DHT11_check_response();
+    RH_integral = DHT11_read();
+    RH_decimal = DHT11_read();
+    TEMP_integral = DHT11_read();
+    TEMP_decimal = DHT11_read();
+    CHECKSUM = DHT11_read();
+    temperature = (float)TEMP_integral;
+    display_TEMP(lcd, temperature);
 
-  DHT11_start_signal();
-  presence = DHT11_check_response();
-  RH_integral = DHT11_read();
-  RH_decimal = DHT11_read();
-  TEMP_integral = DHT11_read();
-  TEMP_decimal = DHT11_read();
-  CHECKSUM = DHT11_read();
-  temperature = (float)TEMP_integral;
-  display_TEMP(lcd, temperature);
-
-  set_TEMP();
-  check_TEMP(temperature);
+    set_TEMP();
+    check_TEMP(temperature);
   }
 }
 
@@ -135,7 +133,6 @@ void set_TEMP(void) {
             display_TEMP(pom,temperature);
           }
 }
-
 
 void check_TEMP(float t) {
           if(t >= (setTemperature + 5)){
