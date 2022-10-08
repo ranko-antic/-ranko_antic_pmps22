@@ -11,6 +11,4 @@ void DHT11_start_signal(void);
 uint8_t DHT11_check_response(void);
 uint8_t DHT11_read(void);
 
-
-
 #endif 
