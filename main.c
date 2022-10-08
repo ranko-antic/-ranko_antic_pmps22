@@ -124,25 +124,25 @@ int main(void) {
 }
 
 void set_TEMP(void) {
-          if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_9) == 1) {
-            setTemperature += increment;
-            display_TEMP(pom,temperature);
-          }
-          if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_15) == 1) {
-            setTemperature -= increment;
-            display_TEMP(pom,temperature);
-          }
+  if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_9) == 1) {
+    setTemperature += increment;
+    display_TEMP(pom,temperature);
+  }
+  if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_15) == 1) {
+    setTemperature -= increment;
+    display_TEMP(pom,temperature);
+  }
 }
 
 void check_TEMP(float t) {
-          if(t >= (setTemperature + 5)){
-            HAL_GPIO_WritePin(GPIOC,GPIO_PIN_11,GPIO_PIN_RESET);
-          }  //ventilator
-          else if(t <= (setTemperature-5)){
-            HAL_GPIO_WritePin(GPIOC,GPIO_PIN_10,GPIO_PIN_RESET);  //grijalica
-          }
-          else {
-            HAL_GPIO_WritePin(GPIOC,GPIO_PIN_10,GPIO_PIN_SET);
-            HAL_GPIO_WritePin(GPIOC,GPIO_PIN_11,GPIO_PIN_SET);
-          }
+  if(t >= (setTemperature + 5)){
+    HAL_GPIO_WritePin(GPIOC,GPIO_PIN_11,GPIO_PIN_RESET);
+  }  //ventilator
+  else if(t <= (setTemperature-5)){
+    HAL_GPIO_WritePin(GPIOC,GPIO_PIN_10,GPIO_PIN_RESET);  //grijalica
+  }
+  else {
+    HAL_GPIO_WritePin(GPIOC,GPIO_PIN_10,GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOC,GPIO_PIN_11,GPIO_PIN_SET);
+  }
 }
