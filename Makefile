@@ -9,7 +9,7 @@ STM_COMMON=../../sdk/
 STM32CUBEPROG:=../../stmcubeprog/bin/STM32_Programmer.sh -vb 1 -q -c port=SWD 
 
 # Put your source files here (or *.c, etc)
-SRCS = main3.c 
+SRCS = main.c 
 SRCS += system_stm32f4xx.c stm32f4xx_it.c
 SRCS += usart.c misc.c
 SRCS += delay.c
