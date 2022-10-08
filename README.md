@@ -1,5 +1,5 @@
-# STM32F407xx - HAL API Project
-Design of microprocessor systems / Faculty of Electrical Engineering (University of Tuzla)
+# STM32F407 - HAL API Project
+Design of Microprocessor Systems / Faculty of Electrical Engineering (University of Tuzla)
 
 ## Specification
 ### Components:
